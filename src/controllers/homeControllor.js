@@ -22,7 +22,7 @@ let seachThuoc = async (req, res)=>{
 
 let getpage =async(req, res) =>{
     try{
-        let data = await db.User.findAll();
+        let data = await db.NguoiDung.findAll();
         return res.render('index.ejs',{
             data: JSON.stringify(data) 
         });
