@@ -4,12 +4,14 @@ import homeControllor from "../controllers/homeControllor";
 let router = express.Router();
 
 const initWedRoute = (app)=>{
-    // router.get('/users', homeControllor.getAllUser);
-    router.get('/',(req,res)=>{
-        return res.send("hello");
-    })
+    router.get('/thuoc', homeControllor.getAllThuoc);
+    router.post('/create-thuoc', homeControllor.createThuoc);
+    router.put('/updateThuoc', homeControllor.updateThuoc);
+    router.delete('/deleteThuoc:MaThuoc', homeControllor.deleteThuoc);
+    router.get('/seachThuoc', homeControllor.seachThuoc);
+
 
     return app.use("/", router);
 }
 
-export default initWedRoute;  
+export default initWedRoute;
