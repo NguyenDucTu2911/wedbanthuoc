@@ -2,29 +2,14 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('NguoiDungs', {
-      idKH: {
+    await queryInterface.createTable('ChucVus', {
+      idCV: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      HoTen: {
-        type: Sequelize.STRING
-      },
-      GioiTinh: {
-        type: Sequelize.BOOLEAN
-      },
-      NgaySinh: {
-        type: Sequelize.DATE
-      },
-      SoDT: {
-        type: Sequelize.STRING(11)
-      },
-      email: {
-        type: Sequelize.STRING
-      },
-      DiaChi: {
+      ChucVu: {
         type: Sequelize.STRING
       },
       ThoiGianTao: {
@@ -38,6 +23,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('NguoiDungs');
+    await queryInterface.dropTable('ChucVus');
   }
 };
