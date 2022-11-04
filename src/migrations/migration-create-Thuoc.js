@@ -54,6 +54,9 @@ module.exports = {
       SoDangKy: {
         type: Sequelize.STRING
       },
+      Anh: {
+        type: Sequelize.STRING
+      },
       MaNhomThuoc: {
         type: Sequelize.INTEGER
       },

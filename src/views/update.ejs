@@ -18,18 +18,14 @@
     <div class="container">
         <div class="row">
             <div class="col-12 mt-10">creaate</div>
-            <form action="/port" method="post">
+            <form action="/update-crud" method="post">
                 <div class="form-group">
                     <label for="inputHoTen">taiKhoan</label>
-                    <input type="text" class="form-control" id="inputHoTen" name="TaiKhoan">
+                    <input type="text" class="form-control" id="inputHoTen" name="TaiKhoan" value="<%= DataNhanVien.TaiKhoan %>">
                 </div>
                 <div class="form-group">
-                    <label for="inputHoTen">matKhau</label>
-                    <input type="text" class="form-control" id="inputHoTen" name="MatKhau">
-                </div>
-                <div class="form-group col-md-4">
                     <label for="inputState">quyen</label>
-                    <select name="Quyen" id="inputState" class="form-control">
+                    <select name="Quyen" id="inputState" class="form-control" value = "<%= DataNhanVien.Quyen%>">
                       <option value="1" selected>admin</option>
                       <option value="2">quanlys</option>
                       <option value="3">banhang</option>
@@ -37,9 +33,10 @@
                   </div>
                 <div class="form-group">
                     <label for="inputHoTen">manhanvien</label>
-                    <input type="text" class="form-control" id="inputHoTen" name="MaNV">
+                    <input type="text" class="form-control" id="inputHoTen" name="MaNV" value = "<%= DataNhanVien.MaNV%>">
                 </div>
-                <button type="submit" class="btn btn-primary">Sign in</button>
+                <input type="text" name="id" value="<%= DataNhanVien.id %>" hidden>
+                <button type="submit" class="btn btn-primary">Save</button>
               </form>
         </div>
     </div>

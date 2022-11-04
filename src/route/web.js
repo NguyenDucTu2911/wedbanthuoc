@@ -4,14 +4,11 @@ import homeControllor from "../controllers/homeControllor";
 let router = express.Router();
 
 const initWedRoute = (app)=>{
-    // router.get('/thuoc', homeControllor.getAllThuoc);
-    // router.post('/create-thuoc', homeControllor.createThuoc);
-    // router.put('/updateThuoc', homeControllor.updateThuoc);
-    // router.delete('/deleteThuoc:MaThuoc', homeControllor.deleteThuoc);
-    // router.get('/seachThuoc', homeControllor.seachThuoc);
     router.get('/',homeControllor.getpage)
-
-
+    router.post('/port', homeControllor.createNhanVien)
+    router.get('/crud',homeControllor.getNhanVien)
+    router.get('/edit-crud', homeControllor.geteditNhanVien)
+    router.post('/update-crud', homeControllor.updateNhanVien)
     return app.use("/", router);
 }
 

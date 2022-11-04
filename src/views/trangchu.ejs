@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html{
+            font-size: unset;
+        }
+        table, th, td {
+            border:1px solid black;
+            text-align: center;
+        }
+        .btn {
+            margin: 5px;
+            padding: 5px;
+            background-color: cornsilk;
+            border-style: hidden;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover{
+            background-color: brown;
+            color: black;
+        }   
+    </style>
+</head>
+<body>
+    <table style="width:100%">
+        <tr>
+          <th>SO Tai Khoan</th>
+          <th>Tài Khoản</th>
+          <th>Mật Khẩu</th>
+          <th>Quyền</th>
+          <th>mã nhân viên</th>
+          <th>ngày tạo</th>
+          <th>ngày cập nhật</th>
+        </tr>
+        <% for(i=0; i< data.length; i++) { %>
+        <tr>
+          <td><%= data[i].id %></td>
+          <td><%= data[i].TaiKhoan %></td>
+          <td><%= data[i].MatKhau %></td>
+          <td><%= data[i].Quyen %></td>
+          <td><%= data[i].MaNV %></td>
+          <td><%= data[i].createdAt %></td>
+          <td><%= data[i].updatedAt %></td>
+            <td>
+                <a href="/edit-crud?id=<%= data[i].id %>" class="btn">sửa</a>
+                <a href="" class="btn">xóa</a>
+            </td>
+        </tr>
+        <% } %>
+      </table>
+    
+</body>
+</html>
