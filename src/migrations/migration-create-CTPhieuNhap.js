@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('CTPhieuNhaps', {
-    SoPN: {
+    id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -27,14 +27,14 @@ module.exports = {
       SoLuongNhap: {
         type: Sequelize.INTEGER
       },
-      ThanhToan: {
+      ThanhTien: {
         type: Sequelize.STRING
       },
-      ThoiGianTao: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      ThoiCapNhat: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
       }

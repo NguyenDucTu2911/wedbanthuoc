@@ -3,25 +3,25 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('NguoiDungs', [{
+    return queryInterface.bulkInsert('KhachHangs', [{
       HoTen: 'nguyen duc tu',
       GioiTinh: 0,
       NgaySinh: '2000-11-29',
       SoDT: '0336234081',
-      email: 'example@example.com',
+      Email: 'example@example.com',
       DiaChi: 'viet nam',
-      ThoiGianTao: new Date(),
-      ThoiCapNhat: new Date()
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       HoTen: 'phan tien huy',
       GioiTinh: 1,
       NgaySinh: '2000-11-29',
       SoDT: '0336234081',
-      email: 'example@example.com',
+      Email: 'example@example.com',
       DiaChi: 'viet nam',
-      ThoiGianTao: new Date(),
-      ThoiCapNhat: new Date()
+      createdAt: new Date(),
+      updatedAt: new Date()
     }
   ]);
   },

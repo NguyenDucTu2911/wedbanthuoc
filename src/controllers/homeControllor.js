@@ -22,14 +22,14 @@ let seachThuoc = async (req, res)=>{
 
 let getpage =async(req, res) =>{
     try{
-        let data = await db.NguoiDung.findAll();
+        let data = await db.AllCode.findAll();
         return res.render('index.ejs',{
-            data: JSON.stringify(data) 
+            data: JSON.stringify(data)
         });
     }catch(e){
         console.log(e)
     }
-    
+   
 }
 
 module.exports = {

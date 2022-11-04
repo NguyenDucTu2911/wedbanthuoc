@@ -21,11 +21,11 @@ module.exports = {
       Value_vi: {
         type: Sequelize.STRING
       },
-      ThoiGianTao: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      ThoiCapNhat: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
       }

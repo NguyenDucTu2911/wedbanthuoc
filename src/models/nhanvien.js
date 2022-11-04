@@ -15,10 +15,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   NhanVien.init({
     HoTen: DataTypes.STRING,
+    Email: DataTypes.STRING,
     GioiTinh: DataTypes.BOOLEAN,
     NgaySinh: DataTypes.DATE,
     SoDT: DataTypes.STRING,
-    Email: DataTypes.STRING,
     DiaChi: DataTypes.STRING,
     idCV: DataTypes.INTEGER
   }, {

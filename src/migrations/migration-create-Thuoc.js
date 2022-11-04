@@ -6,11 +6,14 @@ const { sequelize } = require('../models');
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Thuocs', {
-      MaThuoc: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
+      },
+      TenThuoc: {
+        type: Sequelize.STRING
       },
       DangBaoChe: {
         type: Sequelize.STRING
@@ -33,6 +36,9 @@ module.exports = {
       DVT: {
         type: Sequelize.STRING
       },
+      SoLuong: {
+        type: Sequelize.INTEGER
+      },
       QuyCach: {
         type: Sequelize.STRING
       },
@@ -51,11 +57,11 @@ module.exports = {
       MaNhomThuoc: {
         type: Sequelize.INTEGER
       },
-      ThoiGianTao: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      ThoiCapNhat: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
       }

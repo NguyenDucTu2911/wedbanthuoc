@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Thuoc.init({
+    TenThuoc: DataTypes.STRING,
     DangBaoChe : DataTypes.STRING,
     TacDung : DataTypes.STRING,
     ThanhPhanChinh : DataTypes.TEXT,
@@ -16,13 +17,13 @@ module.exports = (sequelize, DataTypes) => {
     CanhBao : DataTypes.STRING,
     DonGia : DataTypes.STRING,
     DVT : DataTypes.STRING,
-    SoLuong : DataTypes.STRING,
+    SoLuong : DataTypes.INTEGER,
     QuyCach : DataTypes.STRING,
     ChiDinh : DataTypes.STRING,
     ThuocCanKeToa : DataTypes.STRING,
     ChongChiDinh : DataTypes.STRING,
     SoDangKy : DataTypes.STRING,
-    MaNhomThuoc : DataTypes.STRING,
+    MaNhomThuoc : DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Thuoc',

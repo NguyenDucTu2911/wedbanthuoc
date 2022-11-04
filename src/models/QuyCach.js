@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   QuyCach.init({
-    QuyCach: DataTypes.STRING
+    TenQuyCach: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'QuyCach',

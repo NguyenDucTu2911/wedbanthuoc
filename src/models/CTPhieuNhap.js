@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     idNSX: DataTypes.INTEGER,
     SoLo: DataTypes.INTEGER,
     NgaySX: DataTypes.DATE,
-    SoLo: DataTypes.INTEGER,
+    HanSD: DataTypes.DATE,
     SoLuongNhap: DataTypes.INTEGER,
     ThanhTien: DataTypes.STRING
   }, {
