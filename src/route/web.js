@@ -9,6 +9,8 @@ const initWedRoute = (app)=>{
     router.get('/crud',homeControllor.getNhanVien)
     router.get('/edit-crud', homeControllor.geteditNhanVien)
     router.post('/update-crud', homeControllor.updateNhanVien)
+    router.get('/delete-crud', homeControllor.deleteNhanVien)
+
     return app.use("/", router);
 }
 

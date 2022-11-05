@@ -44,7 +44,7 @@ let getInfoNhanVienid = async(NhanVienid)=>{
                 resolve(NhanVien)
             }
             else{
-                resolve([])
+                resolve({})
             }
         }catch(e){
             reject(e)
@@ -56,7 +56,6 @@ let UpDaTeNV = async (data)=>{
     return new Promise(async (resolve, reject)=>{
         try{
             let NhanVien = await db.TaiKhoanNhanVien.findOne({
-                
                 where: { id: data.id}
             })
             if(NhanVien){
@@ -65,7 +64,8 @@ let UpDaTeNV = async (data)=>{
                 NhanVien.MaNV = data.MaNV;
 
                 await NhanVien.save();
-                resolve();
+                let allNhanvien = await db.TaiKhoanNhanVien.findAll()
+                resolve(allNhanvien);
             }
             else{
                 resolve()
@@ -73,6 +73,23 @@ let UpDaTeNV = async (data)=>{
         }catch(e){
             reject(e)
         }
+    })
+}
+
+let deleteTeNV = async (data)=>{
+    return new Promise(async (resolve, reject)=>{
+        try{
+            let Nhanvien = await db.TaiKhoanNhanVien.findOne({
+                where: { id: data}
+            })
+            if(Nhanvien){
+                await Nhanvien.destroy()
+            }
+            let allNhanvien = await db.TaiKhoanNhanVien.findAll()
+            resolve(allNhanvien);
+        }catch(e){
+            reject(e);
+        }        
     })
 }
 
@@ -92,7 +109,8 @@ module.exports = {
     Taonhanvien: Taonhanvien,
     getAllNhanVien: getAllNhanVien,
     getInfoNhanVienid: getInfoNhanVienid,
-    UpDaTeNV: UpDaTeNV
+    UpDaTeNV: UpDaTeNV,
+    deleteTeNV: deleteTeNV
 } 
 
 

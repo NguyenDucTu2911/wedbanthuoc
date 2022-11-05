@@ -39,12 +39,20 @@ let geteditNhanVien = async (req, res) =>{
 }
 
 let updateNhanVien = async (req, res)=>{
-    let datanv = req.body
-    let data = await crud.UpDaTeNV(datanv)
+    let datanv = req.body;
+    let data = await crud.UpDaTeNV(datanv);
     return res.render('trangchu.ejs',{
-        data: data
+        data: data 
+    })
+}
+
+let deleteNhanVien = async (req, res) =>{
+    let id = req.query.id;
+    let data = await crud.deleteTeNV(id);
+    return res.render('trangchu.ejs',{
+        data: data 
     })
 }
 module.exports = {
-    getpage:getpage,getNhanVien: getNhanVien,createNhanVien : createNhanVien, geteditNhanVien:geteditNhanVien, updateNhanVien:updateNhanVien
+    getpage:getpage,getNhanVien: getNhanVien,createNhanVien : createNhanVien, geteditNhanVien:geteditNhanVien, updateNhanVien:updateNhanVien, deleteNhanVien:deleteNhanVien
 }
