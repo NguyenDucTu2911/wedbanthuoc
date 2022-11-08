@@ -3,14 +3,22 @@ import bodyParser from 'body-parser';
 import configViewEngine from './config/viewEngine';
 import initWedRoute from './route/web';
 import connectDB from './config/ConnectDB';
+import cors from 'cors'
 
 require('dotenv').config()
 
 
 const app = express();
+app.use(cors({origin: true,
+      optionsSuccessStatus: 200,
+      credentials: true,
+    })
+  );
 const port = process.env.PORT;
 
 app.use(express.json());
+
+
 
 app.use(express.urlencoded({
     extended: true
