@@ -14,6 +14,8 @@ const initWedRoute = (app)=>{
     router.get('/delete-crud', homeControllor.deleteNhanVien)
 
     router.post('/api/login', userControllers.handleLogin)
+    router.get('/api/getUser', userControllers.handleGetAllUser)
+
     return app.use("/", router);
 }
 

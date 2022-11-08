@@ -53,6 +53,14 @@ let deleteNhanVien = async (req, res) =>{
         data: data 
     })
 }
+
+
+
 module.exports = {
-    getpage:getpage,getNhanVien: getNhanVien,createNhanVien : createNhanVien, geteditNhanVien:geteditNhanVien, updateNhanVien:updateNhanVien, deleteNhanVien:deleteNhanVien
+    getpage:getpage,
+    getNhanVien: getNhanVien,
+    createNhanVien : createNhanVien,
+    geteditNhanVien:geteditNhanVien, 
+    updateNhanVien:updateNhanVien, 
+    deleteNhanVien:deleteNhanVien,
 }

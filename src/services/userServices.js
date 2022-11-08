@@ -61,6 +61,35 @@ let checkUser = (TaiKhoan)=>{
     }) 
 }
 
+
+let GetAllUser = (userId) =>{
+    return new Promise(async (resolve, reject)=>{
+        try{
+            let user = '';
+            if(userId=== 'ALL'){
+                user = await db.TaiKhoanNhanVien.findAll({
+                    
+                    attributes:{
+                        exclude:['MatKhau'] 
+                    }
+                });
+            }
+            if(userId && userId !== 'ALL'){
+                user = await db.TaiKhoanNhanVien.findOne({
+                   
+                    where: { id: userId},
+                    attributes:{
+                        exclude:['MatKhau'] 
+                    }
+                })
+            }
+            resolve(user);
+        }catch(e){
+            reject(e)
+        }
+    })
+}
 module.exports={
-    handleUserLogin:handleUserLogin
+    handleUserLogin:handleUserLogin,
+    GetAllUser: GetAllUser
 }
