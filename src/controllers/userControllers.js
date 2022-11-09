@@ -21,7 +21,7 @@ let handleLogin = async (req, res)=>{
 }
 
 let handleGetAllUser = async(req, res) =>{
-    let id = req.body.id;
+    let id = req.query.id;
 
     if(!id){
         return res.status(200).json({
@@ -37,9 +37,34 @@ let handleGetAllUser = async(req, res) =>{
         users
     })
 }
+ 
+let handleCreateUser = async(req, res) =>{
+    let message = await userServices.CreateUser(req.body);
+    return res.status(200).json({message})
+}
+
+let handleUpdateUser = async(req, res) =>{
+    let message = await userServices.UpdateUser(req.body);
+    return res.status(200).json({message})
+}
+
+let handledeleteUser = async (req, res) =>{
+    let id = req.body.id;
+    if(!id){
+       return res.status(200).json({
+            errCode: 1,
+            errMessage: 'tài khoản không tồn tại'
+       })
+    }
+    let message = await userServices.DeleteUser(req.body.id);
+    return res.status(200).json({message})
+}
 
 module.exports = {
     handleLogin:handleLogin,
     handleGetAllUser: handleGetAllUser,
+    handleCreateUser: handleCreateUser,
+    handledeleteUser: handledeleteUser,
+    handleUpdateUser: handleUpdateUser,
 
 }

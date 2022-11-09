@@ -13,8 +13,15 @@ const initWedRoute = (app)=>{
     router.post('/update-crud', homeControllor.updateNhanVien)
     router.get('/delete-crud', homeControllor.deleteNhanVien)
 
+    //api loggin
     router.post('/api/login', userControllers.handleLogin)
+
+    //api crud Users
     router.get('/api/getUser', userControllers.handleGetAllUser)
+    router.post('/api/postUser', userControllers.handleCreateUser)
+    router.put('/api/putUser', userControllers.handleUpdateUser)
+    router.delete('/api/deleteUser', userControllers.handledeleteUser)
+
 
     return app.use("/", router);
 }

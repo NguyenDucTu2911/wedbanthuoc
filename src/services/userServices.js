@@ -2,6 +2,8 @@ import { resolve } from 'promise'
 import db from '../models/index'
 import bcrypt from 'bcryptjs';
 
+const salt = bcrypt.genSaltSync(10);
+
 let handleUserLogin = (TaiKhoan, MatKhau)=>{
     return new Promise(async(resolve, reject)=>{
         try{
@@ -89,7 +91,114 @@ let GetAllUser = (userId) =>{
         }
     })
 }
+
+let CreateUser = (data) =>{
+    return new Promise(async (resolve, reject)=>{
+        try{     
+                let check = await checkUser(data.TaiKhoan)
+                if(check === true){
+                    resolve({
+                        errCode: 1,
+                        errMessage: 'Tài khoản đã tại tại',
+                    });
+                }
+                console.log(data.MatKhau)
+                let hashmatkhau = await hashPasswords(data.MatKhau)
+                await db.TaiKhoanNhanVien.create({
+                    TaiKhoan: data.TaiKhoan,
+                    MatKhau: hashmatkhau,
+                    Quyen: data.Quyen,
+                    MaNV: data.MaNV
+                })
+            resolve({
+                errCode: 0,
+                errMessage: 'TAO THANH CONG',
+                data
+            });
+        }catch(e){
+            reject(e)
+        }
+    })
+}
+
+let UpdateUser  = async (data) =>{
+    return new Promise(async (resolve, reject)=>{
+        try{
+            if(!data.id){
+                resolve({
+                    errCode: 2,
+                    errMessage: 'không tìm thấy tài khoản cần cập nhật'
+                })
+            }
+            let User = await db.TaiKhoanNhanVien.findOne({
+                where: { id: data.id},
+                "raw": false,
+            })
+            if(User){
+                User.TaiKhoan = data.TaiKhoan;
+                User.Quyen = data.Quyen;
+                User.MaNV = data.MaNV;
+
+                await User.save();
+                // let allNhanvien = await db.TaiKhoanNhanVien.findAll()
+                resolve({
+                    errCode: 0,
+                    errMessage: 'cập nhật người dùng thành công'
+                });
+            }
+            else{
+                resolve({
+                    errCode: 1,
+                    errMessage: 'cập nhật thất bại'
+                })
+            }
+        }catch(e){
+            reject(e)
+        }
+    })
+}
+
+let  DeleteUser = async (userid)=>{
+    return new Promise(async (resolve, reject)=>{
+        try{
+            let user = await db.TaiKhoanNhanVien.findOne({
+                where: { id: userid},
+                "raw": false,
+            })
+            if(!user){
+                resolve({
+                    errCode: 1,
+                    errMessage: 'tài khoản không tồn tại'
+                })
+            }
+            await user.destroy();
+            resolve({ 
+                errCode: 0,
+                errMessage: 'xóa tài khoản thành công'
+            });
+        }catch(e){
+            reject(e);
+        }        
+    }) 
+}
+
+let hashPasswords = (Password) =>{
+    return new Promise(async (resolve, reject)=>{
+        try{
+            let hashPassword = await bcrypt.hash(Password, salt);
+            resolve(hashPassword)
+        }catch(e){
+            reject(e);
+        }
+    })
+}
+
+
 module.exports={
     handleUserLogin:handleUserLogin,
-    GetAllUser: GetAllUser
+    GetAllUser: GetAllUser,
+    CreateUser: CreateUser,
+    hashPasswords: hashPasswords,
+    UpdateUser: UpdateUser,
+    DeleteUser: DeleteUser
 }
