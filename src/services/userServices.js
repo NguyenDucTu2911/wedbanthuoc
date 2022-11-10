@@ -10,7 +10,7 @@ let handleUserLogin = (TaiKhoan, MatKhau)=>{
             let userData = {}
             let isExit = await checkUser(TaiKhoan)
             if(isExit){
-                let user = await db.TaiKhoanNhanVien.findOne({
+                let user = await db.NhanVien.findOne({
                     where: {TaiKhoan: TaiKhoan},
                     attributes: ['TaiKhoan','Quyen','MatKhau'],
                     raw: true
@@ -48,8 +48,8 @@ let handleUserLogin = (TaiKhoan, MatKhau)=>{
 let checkUser = (TaiKhoan)=>{
     return new Promise(async (resolve, reject)=>{
         try{
-            let TaiKhoanNV = await db.TaiKhoanNhanVien.findOne({
-                where: {TaiKhoan: TaiKhoan }
+            let TaiKhoanNV = await db.NhanVien.findOne({
+                where: {TaiKhoan: TaiKhoan},
             })
             if(TaiKhoanNV){
                 resolve(true)
@@ -69,7 +69,7 @@ let GetAllUser = (userId) =>{
         try{
             let user = '';
             if(userId=== 'ALL'){
-                user = await db.TaiKhoanNhanVien.findAll({
+                user = await db.NhanVien.findAll({
                     
                     attributes:{
                         exclude:['MatKhau'] 
@@ -77,7 +77,7 @@ let GetAllUser = (userId) =>{
                 });
             }
             if(userId && userId !== 'ALL'){
-                user = await db.TaiKhoanNhanVien.findOne({
+                user = await db.NhanVien.findOne({
                    
                     where: { id: userId},
                     attributes:{
@@ -96,25 +96,33 @@ let CreateUser = (data) =>{
     return new Promise(async (resolve, reject)=>{
         try{     
                 let check = await checkUser(data.TaiKhoan)
+                console.log(check)
                 if(check === true){
                     resolve({
                         errCode: 1,
                         errMessage: 'Tài khoản đã tại tại',
                     });
                 }
-                console.log(data.MatKhau)
-                let hashmatkhau = await hashPasswords(data.MatKhau)
-                await db.TaiKhoanNhanVien.create({
+                else{
+                    let hashmatkhau = await hashPasswords(data.MatKhau)
+                    await db.NhanVien.create({
                     TaiKhoan: data.TaiKhoan,
                     MatKhau: hashmatkhau,
-                    Quyen: data.Quyen,
-                    MaNV: data.MaNV
-                })
-            resolve({
-                errCode: 0,
-                errMessage: 'TAO THANH CONG',
-                data
-            });
+                    HoTen: data.HoTen,
+                    Email: data.Email,
+                    GioiTinh: data.GioiTinh,
+                    NgaySinh: data.NgaySinh,
+                    SoDT: data.SoDT,
+                    DiaChi: data.DiaChi,
+                    idCV: data.idCV,
+                    Quyen: data.Quyen,})
+
+                }
+                resolve({
+                    errCode: 0,
+                    errMessage: 'TAO THANH CONG',
+                    data
+                });
         }catch(e){
             reject(e)
         }
@@ -130,7 +138,7 @@ let UpdateUser  = async (data) =>{
                     errMessage: 'không tìm thấy tài khoản cần cập nhật'
                 })
             }
-            let User = await db.TaiKhoanNhanVien.findOne({
+            let User = await db.NhanVien.findOne({
                 where: { id: data.id},
                 "raw": false,
             })
@@ -161,7 +169,7 @@ let UpdateUser  = async (data) =>{
 let  DeleteUser = async (userid)=>{
     return new Promise(async (resolve, reject)=>{
         try{
-            let user = await db.TaiKhoanNhanVien.findOne({
+            let user = await db.NhanVien.findOne({
                 where: { id: userid},
                 "raw": false,
             })

@@ -7,7 +7,7 @@ let Taonhanvien = async (data)=>{
     return new Promise(async (resolve, reject)=>{
         try{
             let hashmatkhau = await maHoaMatKhau(data.MatKhau)
-            await db.TaiKhoanNhanVien.create({
+            await db.NhanVien.create({
                 TaiKhoan: data.TaiKhoan,
                 MatKhau: hashmatkhau,
                 Quyen: data.Quyen,
@@ -23,7 +23,7 @@ let Taonhanvien = async (data)=>{
 let getAllNhanVien = async (data) =>{
     return new Promise(async (resolve, reject)=>{
         try{
-            let AllNhanVien = await db.TaiKhoanNhanVien.findAll({
+            let AllNhanVien = await db.NhanVien.findAll({
                 raw: true,
             });
             resolve(AllNhanVien);
@@ -36,7 +36,7 @@ let getAllNhanVien = async (data) =>{
 let getInfoNhanVienid = async(NhanVienid)=>{
     return new Promise(async (resolve, reject)=>{
         try{
-            let NhanVien = await db.TaiKhoanNhanVien.findOne({
+            let NhanVien = await db.NhanVien.findOne({
                 raw: true,
                 where: { id: NhanVienid}
             })
@@ -55,7 +55,7 @@ let getInfoNhanVienid = async(NhanVienid)=>{
 let UpDaTeNV = async (data)=>{
     return new Promise(async (resolve, reject)=>{
         try{
-            let NhanVien = await db.TaiKhoanNhanVien.findOne({
+            let NhanVien = await db.NhanVien.findOne({
                 where: { id: data.id}
             })
             if(NhanVien){
@@ -64,7 +64,7 @@ let UpDaTeNV = async (data)=>{
                 NhanVien.MaNV = data.MaNV;
 
                 await NhanVien.save();
-                let allNhanvien = await db.TaiKhoanNhanVien.findAll()
+                let allNhanvien = await db.NhanVien.findAll()
                 resolve(allNhanvien);
             }
             else{
@@ -79,13 +79,13 @@ let UpDaTeNV = async (data)=>{
 let deleteTeNV = async (data)=>{
     return new Promise(async (resolve, reject)=>{
         try{
-            let Nhanvien = await db.TaiKhoanNhanVien.findOne({
+            let Nhanvien = await db.NhanVien.findOne({
                 where: { id: data}
             })
             if(Nhanvien){
                 await Nhanvien.destroy()
             }
-            let allNhanvien = await db.TaiKhoanNhanVien.findAll()
+            let allNhanvien = await db.NhanVien.findAll()
             resolve(allNhanvien);
         }catch(e){
             reject(e);
