@@ -144,8 +144,13 @@ let UpdateUser  = async (data) =>{
             })
             if(User){
                 User.TaiKhoan = data.TaiKhoan;
+                User.HoTen= data.HoTen;
+                User.Email = data.Email;
+                User.GioiTinh = data.GioiTinh;
+                User.SoDT= data.SoDT;
+                User.DiaChi= data.DiaChi;
+                User.idCV= data.idCV;
                 User.Quyen = data.Quyen;
-                User.MaNV = data.MaNV;
 
                 await User.save();
                 // let allNhanvien = await db.TaiKhoanNhanVien.findAll()
