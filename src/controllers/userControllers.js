@@ -60,11 +60,36 @@ let handledeleteUser = async (req, res) =>{
     return res.status(200).json({message})
 }
 
+let getAllCode = async(req, res)=>{
+    try{
+        let data = await userServices.getAllCodeServices(req.query.type);
+        return res.status(200).json(data)
+    }catch(e){
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Không Thể Kết nối đến server'
+        })
+    }
+}
+
+let handleaddCart = async (req, res)=>{
+    let id = req.body.id;
+    if(!id){
+       return res.status(200).json({
+            errCode: 1,
+            errMessage: 'mặt hàng không tồn tại'
+       })
+    }
+    let message = await userServices.addCart(req.body.id);
+    return res.status(200).json({message})
+}
+
 module.exports = {
     handleLogin:handleLogin,
     handleGetAllUser: handleGetAllUser,
     handleCreateUser: handleCreateUser,
     handledeleteUser: handledeleteUser,
     handleUpdateUser: handleUpdateUser,
+    getAllCode: getAllCode,
 
 }

@@ -55,7 +55,6 @@ let deleteNhanVien = async (req, res) =>{
 }
 
 
-
 module.exports = {
     getpage:getpage,
     getNhanVien: getNhanVien,

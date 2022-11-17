@@ -22,11 +22,14 @@ const initWedRoute = (app)=>{
     router.post('/api/postUser', userControllers.handleCreateUser)
     router.put('/api/putUser', userControllers.handleUpdateUser)
     router.delete('/api/deleteUser', userControllers.handledeleteUser)
+    router.get('/api/getAllcode', userControllers.getAllCode)
     // crud medicine
     router.get('/api/getMedicine',medicineController.getAllMedicine)
-    // router.post('/api/postMedicine',medicineController.postMedicine)
-    // router.put('/api/UpdateMedicine',medicineController.UpdateMedicine)
-    // router.delete('/api/deleteMedicine',medicineController.deleteMidicine)
+    router.post('/api/postMedicine',medicineController.postMedicine)
+    router.put('/api/UpdateMedicine',medicineController.putMedicine)
+    router.delete('/api/deleteMedicine',medicineController.deleteMidicine)
+    //add cart
+    // router.post('/api/add-to-acrt',userControllers.handleaddCart)
 
     return app.use("/", router);
 }

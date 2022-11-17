@@ -55,7 +55,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       Anh: {
-        type: Sequelize.STRING
+        type: Sequelize.BLOB('long')
       },
       MaNhomThuoc: {
         type: Sequelize.INTEGER

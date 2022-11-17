@@ -12,7 +12,7 @@ let handleUserLogin = (TaiKhoan, MatKhau)=>{
             if(isExit){
                 let user = await db.NhanVien.findOne({
                     where: {TaiKhoan: TaiKhoan},
-                    attributes: ['TaiKhoan','Quyen','MatKhau'],
+                    attributes: ['TaiKhoan','Quyen','HoTen','MatKhau'],
                     raw: true
                 })
                 if(user){
@@ -205,13 +205,34 @@ let hashPasswords = (Password) =>{
         }
     })
 }
-
-
+let getAllCodeServices = (InputType)=>{
+    return new Promise(async (resolve, reject)=>{
+        try{
+            if(!InputType){
+                resolve({
+                    errCode: 1,
+                    errMessage: 'không thể lấy dữ liệu'
+                })
+            }else{
+                let res = {};
+                let AllCode = await db.AllCode.findAll({
+                    where:{type: InputType}
+                });
+                res.errCode = 0;
+                res.data = AllCode;
+                resolve(res)
+            }  
+        }catch(e){
+            reject(e);
+        }
+    })
+}
 module.exports={
     handleUserLogin:handleUserLogin,
     GetAllUser: GetAllUser,
     CreateUser: CreateUser,
     hashPasswords: hashPasswords,
     UpdateUser: UpdateUser,
-    DeleteUser: DeleteUser
+    DeleteUser: DeleteUser,
+    getAllCodeServices:getAllCodeServices
 }

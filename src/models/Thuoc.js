@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     ThuocCanKeToa : DataTypes.STRING,
     ChongChiDinh : DataTypes.STRING,
     SoDangKy : DataTypes.STRING,
-    Anh: DataTypes.STRING,
+    Anh: DataTypes.BLOB('long'),
     MaNhomThuoc : DataTypes.INTEGER,
   }, {
     sequelize,
