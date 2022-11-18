@@ -5,7 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Thuoc extends Model {
     static associate(models) {
-      // define association here
+      // Thuoc.belongsTo(models.Allcode, {foreignKey: 'GioiTinh', targetKey: "keyMap"})
     }
   }
   Thuoc.init({

@@ -25,6 +25,7 @@ const initWedRoute = (app)=>{
     router.get('/api/getAllcode', userControllers.getAllCode)
     // crud medicine
     router.get('/api/getMedicine',medicineController.getAllMedicine)
+    router.get('/api/getAllMedicine',medicineController.getMedicine)
     router.post('/api/postMedicine',medicineController.postMedicine)
     router.put('/api/UpdateMedicine',medicineController.putMedicine)
     router.delete('/api/deleteMedicine',medicineController.deleteMidicine)

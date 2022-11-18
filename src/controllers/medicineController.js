@@ -20,6 +20,25 @@ let getAllMedicine = async(req, res) =>{
     })
 }
 
+let getMedicine = async(req, res)=>{
+    try{
+        let data = await medicineServices.GetAllMedicine()
+        return res.status(200).json({
+            errCode: 0,
+            errMessage:'ok',
+            data
+        })
+
+    }catch(e){
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'err'
+        })
+    }
+   
+
+}
+
 let postMedicine = async(req,res)=>{
     let message = await medicineServices.CreateMedicine(req.body);
     return res.status(200).json({message})
@@ -45,5 +64,6 @@ module.exports={
     getAllMedicine: getAllMedicine,
     postMedicine: postMedicine,
     putMedicine: putMedicine,
-    deleteMidicine:deleteMidicine
+    deleteMidicine:deleteMidicine,
+    getMedicine: getMedicine
 }

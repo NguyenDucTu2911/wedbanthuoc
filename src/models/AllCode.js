@@ -5,7 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class AllCode extends Model {
     static associate(models) {
-      // define association here
+      // AllCode.hasMany(models.NhanVien, {foreignKey:'Quyen', as: 'quyendata'})
     }
   }
   AllCode.init({

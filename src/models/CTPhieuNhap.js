@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   CTPhieuNhap.init({
     MaThuoc: DataTypes.INTEGER,
     idNSX: DataTypes.INTEGER,
+    idNPP: DataTypes.INTEGER,
     SoLo: DataTypes.INTEGER,
     NgaySX: DataTypes.DATE,
     HanSD: DataTypes.DATE,

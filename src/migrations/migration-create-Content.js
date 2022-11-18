@@ -2,15 +2,21 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('QuyCachs', {
-      id: {
+    await queryInterface.createTable('Contents', {
+    id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      TenQuyCach: {
-        type: Sequelize.STRING
+    ContentsHTML: {
+        type: Sequelize.TEXT('long')
+      },
+      MAK: {
+        type: Sequelize.TEXT('long')
+      },
+      thuocId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -23,6 +29,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('QuyCachs');
+    await queryInterface.dropTable('Contents');
   }
 };

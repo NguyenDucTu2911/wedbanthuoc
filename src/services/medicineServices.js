@@ -1,4 +1,4 @@
-import { resolve } from 'promise'
+import { reject, resolve } from 'promise'
 import db from '../models/index'
 
 let GetMedicine = (MedicineId) =>{
@@ -16,6 +16,23 @@ let GetMedicine = (MedicineId) =>{
             }
             resolve(Medicine);
         }catch(e){
+            reject(e)
+        }
+    })
+}
+
+let GetAllMedicine = ()=>{
+    return new Promise(async(resolve, reject)=>{
+        let Medicine = '';
+        try{
+            Medicine = await db.Thuoc.findAll({
+            });
+            resolve({
+                errCode: 0,
+                data: Medicine
+            });
+        }
+        catch(e){
             reject(e)
         }
     })
@@ -159,5 +176,6 @@ module.exports={
     CreateMedicine:CreateMedicine,
     checkThuoc:checkThuoc,
     UpdateMedicine:UpdateMedicine,
-    DeleteMidicineServives:DeleteMidicineServives
+    DeleteMidicineServives:DeleteMidicineServives,
+    GetAllMedicine: GetAllMedicine
 }
