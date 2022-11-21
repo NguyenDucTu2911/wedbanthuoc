@@ -83,6 +83,38 @@ let getDetail = async (req, res) => {
   }
 };
 
+// let getDetailCart = async (req, res) => {
+//   console.log(req.query.id);
+//   try {
+//     let data = await medicineServices.getcartDetail(req.query.id);
+//     return res.status(200).json(data);
+//   } catch (e) {
+//     console.log(error);
+//     return res.status(200).json({
+//       errCode: -1,
+//       errMessage: "loi server",
+//     });
+//   }
+// };
+
+// let getAllCart = async (req, res) => {
+//   let id = req.query.id;
+//   console.log(id);
+//   if (!id) {
+//     return res.status(200).json({
+//       errCode: 1,
+//       errMessage: "missing required prameters",
+//       data: [],
+//     });
+//   }
+//   let data = await medicineServices.GetallCart(id);
+//   return res.status(200).json({
+//     errCode: 0,
+//     errMessage: "ok",
+//     data,
+//   });
+// };
+
 module.exports = {
   getAllMedicine: getAllMedicine,
   postMedicine: postMedicine,
@@ -91,4 +123,6 @@ module.exports = {
   getMedicine: getMedicine,
   postSaveMc: postSaveMc,
   getDetail: getDetail,
+  // getDetailCart: getDetailCart,
+  // getAllCart: getAllCart,
 };
