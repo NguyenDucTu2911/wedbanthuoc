@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Thuoc extends Model {
     static associate(models) {
       // Thuoc.belongsTo(models.Allcode, {foreignKey: 'GioiTinh', targetKey: "keyMap"})
+      Thuoc.hasMany(models.Content, {  foreginKey: 'id ' });
     }
   }
   Thuoc.init({

@@ -29,6 +29,8 @@ const initWedRoute = (app)=>{
     router.post('/api/postMedicine',medicineController.postMedicine)
     router.put('/api/UpdateMedicine',medicineController.putMedicine)
     router.delete('/api/deleteMedicine',medicineController.deleteMidicine)
+    router.post('/api/SaveMedicine', medicineController.postSaveMc)
+    router.get('/api/getDetailMedicine',medicineController.getDetail)
     //add cart
     // router.post('/api/add-to-acrt',userControllers.handleaddCart)
 

@@ -5,11 +5,11 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Content extends Model {
     static associate(models) {
-      // define association here
+      Content.belongsTo(models.Thuoc, { foreginKey: 'thuocId' });
     }
   }
   Content.init({
-    contentHTML: DataTypes.TEXT('long'),
+    ContentsHTML: DataTypes.TEXT('long'),
     MAK: DataTypes.TEXT('long'),
     thuocId: DataTypes.INTEGER,
   }, {

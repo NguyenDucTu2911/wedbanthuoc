@@ -171,11 +171,75 @@ let  DeleteMidicineServives = async (Medicineid)=>{
     }) 
 }
 
+
+let SaveDetailMc = (data) =>{
+    console.log(data)
+    return new Promise(async (resolve, reject)=>{
+        try {
+            if(!data.thuocId || !data.ContentsHTML || !data.MAK){
+                resolve({
+                    errCode: 1,
+                    errMessage: 'messing Save'
+                })
+            }else{
+                console.log('check',data)
+                await db.Content.create({
+                    ContentsHTML: data.ContentsHTML,
+                    MAK: data.MAK,
+                    thuocId: data.thuocId,
+                })
+                resolve({
+                    errCode: 0,
+                    errMessage: "Thanh Cong"
+                })
+            }
+            
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
+let getDetailId = (id)=>{
+    return new Promise( async(resolve,reject)=>{
+        try {
+            if(!id){
+                resolve({
+                    errCode: 1,
+                    errMessage: "không thấy "
+                })
+            }else{
+                let data = await db.Thuoc.findOne({
+                    where: { id: id},
+                    include:[
+                        {model: db.Content}
+                    ],
+                    raw : true ,
+                    nest : true
+                })
+                if(data && data.Anh){
+                    // let img = "";
+                    data.Anh = Buffer( data.Anh ,'base64').toString('binary');
+               }
+                resolve({
+                    errCode: 0,
+                    errMessage: 'Thanh Cong',
+                    data
+                })
+            }
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
 module.exports={
     GetMedicine: GetMedicine,
     CreateMedicine:CreateMedicine,
     checkThuoc:checkThuoc,
     UpdateMedicine:UpdateMedicine,
     DeleteMidicineServives:DeleteMidicineServives,
-    GetAllMedicine: GetAllMedicine
+    GetAllMedicine: GetAllMedicine,
+    SaveDetailMc: SaveDetailMc,
+    getDetailId: getDetailId
 }
