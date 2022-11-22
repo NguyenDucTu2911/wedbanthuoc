@@ -31,6 +31,7 @@ const initWedRoute = (app) => {
   router.post("/api/SaveMedicine", medicineController.postSaveMc);
   router.get("/api/getDetailMedicine", medicineController.getDetail);
   //add cart
+  router.post("/api/portMuaHang", medicineController.portMuaHang);
 //   router.get("/api/getDetailCart", medicineController.getDetailCart);
 //   router.get("/api/getAllCart", medicineController.getAllCart);
   //   router.post("/api/postCart", medicineController.postCart);

@@ -115,6 +115,19 @@ let getDetail = async (req, res) => {
 //   });
 // };
 
+let portMuaHang = async (req, res) => {
+  try {
+    let data = await medicineServices.portMuaHangid(req.body);
+    return res.status(200).json(data);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "loi server",
+    });
+  }
+};
+
 module.exports = {
   getAllMedicine: getAllMedicine,
   postMedicine: postMedicine,
@@ -125,4 +138,5 @@ module.exports = {
   getDetail: getDetail,
   // getDetailCart: getDetailCart,
   // getAllCart: getAllCart,
+  portMuaHang: portMuaHang,
 };

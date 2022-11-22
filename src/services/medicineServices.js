@@ -273,6 +273,56 @@ let getDetailId = (id) => {
 //   });
 // };
 
+let portMuaHangid = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.Email || !data.HoTen || !data.DiaChi || !data.SoDT) {
+        resolve({
+          errCode: 1,
+          errMessage: "lỗi không có Thông tin",
+        });
+      } else {
+        let CUTTOMMERT = await db.KhachHang.findOrCreate({
+          where: { Email: data.Email },
+          defaults: {
+            Email: data.Email,
+            HoTen: data.HoTen,
+            DiaChi: data.DiaChi,
+            SoDT: data.SoDT,
+          },
+        });
+        if (CUTTOMMERT && CUTTOMMERT[0]) {
+          let donhang = await db.PhieuXuat.findOrCreate({
+            where: { idKH: CUTTOMMERT[0].id },
+            default: {
+              idKH: CUTTOMMERT[0].id,
+              idNV: data.idNV,
+              NgayXuat: data.date,
+              GioXuat: data.date,
+            },
+          });
+          if (donhang && donhang[0].id) {
+            await db.CTPhieuXuat.create({
+              id: donhang[0].id,
+              MaThuoc: data.MaThuoc,
+              SoLuongXuat: data.SoLuongXuat,
+              ThanhTien: data.ThanhTien,
+              ThanhToan: data.ThanhToan,
+            });
+          }
+        }
+        resolve({
+          CUTTOMMERT,
+          errCode: 0,
+          errMessage: "them thành công",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 module.exports = {
   GetMedicine: GetMedicine,
   CreateMedicine: CreateMedicine,
@@ -284,4 +334,5 @@ module.exports = {
   getDetailId: getDetailId,
   //   getcartDetail: getcartDetail,
   //   GetallCart: GetallCart,
+  portMuaHangid: portMuaHangid,
 };
