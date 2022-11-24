@@ -1,5 +1,6 @@
 import { reject, resolve } from "promise";
 import db from "../models/index";
+import emailServices from "./emailServices";
 
 let GetMedicine = (MedicineId) => {
   return new Promise(async (resolve, reject) => {
@@ -282,6 +283,11 @@ let portMuaHangid = (data) => {
           errMessage: "lỗi không có Thông tin",
         });
       } else {
+        await emailServices.sendEmail({
+          receiverEmail: data.Email,
+          HoTen: data.HoTen,
+          ThanhTien: data.ThanhTien,
+        });
         let CUTTOMMERT = await db.KhachHang.findOrCreate({
           where: { Email: data.Email },
           defaults: {
@@ -297,11 +303,23 @@ let portMuaHangid = (data) => {
             default: {
               idKH: CUTTOMMERT[0].id,
               idNV: data.idNV,
-              NgayXuat: data.date,
-              GioXuat: data.date,
+              NgayXuat: data.NgayXuat,
+              GioXuat: data.GioXuat,
             },
           });
           if (donhang && donhang[0].id) {
+            // if (!donhang[0].id) {
+            //   await db.CTPhieuXuat.findOrCreate({
+            //     where: { id: donhang[0].id },
+            //     default: {
+            //       id: donhang[0].id,
+            //       MaThuoc: data.MaThuoc,
+            //       SoLuongXuat: data.SoLuongXuat,
+            //       ThanhTien: data.ThanhTien,
+            //       ThanhToan: data.ThanhToan,
+            //     },
+            //   });
+            // } else {
             await db.CTPhieuXuat.create({
               id: donhang[0].id,
               MaThuoc: data.MaThuoc,
@@ -309,6 +327,7 @@ let portMuaHangid = (data) => {
               ThanhTien: data.ThanhTien,
               ThanhToan: data.ThanhToan,
             });
+            // }
           }
         }
         resolve({
@@ -317,6 +336,98 @@ let portMuaHangid = (data) => {
           errMessage: "them thành công",
         });
       }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let getlistgiohangId = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!id) {
+        resolve({
+          errCode: 1,
+          errMessage: "lỗi required",
+        });
+      } else {
+        let data = await db.PhieuXuat.findAll({
+          where: { id: id },
+          include: [
+            {
+              model: db.CTPhieuXuat,
+              // as: "data",
+              // include: [{ model: db.Thuoc, as: "data" }],
+            },
+            { model: db.KhachHang },
+          ],
+          raw: true,
+          nest: true,
+        });
+        //
+        // { model: db.Thuoc },
+        resolve({
+          errCode: 0,
+          errCode: "done",
+          data,
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let cthangthuocId = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!id) {
+        resolve({
+          errCode: 1,
+          errMessage: "lỗi required",
+        });
+      } else {
+        let data = await db.CTPhieuXuat.findAll({
+          where: { id: id },
+          include: [{ model: db.Thuoc }],
+          raw: true,
+          nest: true,
+        });
+        resolve({
+          errCode: 0,
+          errCode: "done",
+          data,
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let GetAllthuocId = () => {
+  return new Promise(async (resolve, reject) => {
+    let data = "";
+    try {
+      data = await db.PhieuXuat.findAll({
+        include: [
+          {
+            model: db.CTPhieuXuat,
+          },
+          { model: db.KhachHang },
+        ],
+        raw: true,
+        nest: true,
+      });
+      resolve({
+        errCode: 0,
+        data: data,
+      });
+      // Medicine = await db.Thuoc.findAll({});
+      // resolve({
+      //   errCode: 0,
+      //   data: Medicine,
+      // });
     } catch (e) {
       reject(e);
     }
@@ -335,4 +446,7 @@ module.exports = {
   //   getcartDetail: getcartDetail,
   //   GetallCart: GetallCart,
   portMuaHangid: portMuaHangid,
+  getlistgiohangId: getlistgiohangId,
+  cthangthuocId: cthangthuocId,
+  GetAllthuocId: GetAllthuocId,
 };

@@ -8,8 +8,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // CTPhieuXuat.hasOne(models.PhieuXuat, { foreginKey: "id " });
-      // CTPhieuXuat.hasOne(models.Thuoc, { foreginKey: "MaThuoc " });
+      CTPhieuXuat.hasMany(models.PhieuXuat, { foreignKey: "id" });
+
+      // CTPhieuXuat.hasMany(models.Thuoc, {
+      //   foreginKey: "MaThuoc",
+      //   as: "data",
+      // });
     }
   }
   CTPhieuXuat.init(

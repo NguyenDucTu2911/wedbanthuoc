@@ -32,11 +32,18 @@ const initWedRoute = (app) => {
   router.get("/api/getDetailMedicine", medicineController.getDetail);
   //add cart
   router.post("/api/portMuaHang", medicineController.portMuaHang);
-//   router.get("/api/getDetailCart", medicineController.getDetailCart);
-//   router.get("/api/getAllCart", medicineController.getAllCart);
+  //   router.get("/api/getDetailCart", medicineController.getDetailCart);
+  //   router.get("/api/getAllCart", medicineController.getAllCart);
   //   router.post("/api/postCart", medicineController.postCart);
 
   // router.post('/api/add-to-acrt',userControllers.handleaddCart)
+  //call tìm kiếm
+  router.get("/api/get-list-giohang", medicineController.getlistgiohang);
+  //call cthang-thuoc
+  router.get("/api/get-cthang-thuoc", medicineController.cthangthuoc);
+
+  //call all thuoc
+  router.get("/api/GetAllthuocId", medicineController.GetAllthuocId);
 
   return app.use("/", router);
 };

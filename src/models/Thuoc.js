@@ -3,9 +3,9 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Thuoc extends Model {
     static associate(models) {
-      // Thuoc.belongsTo(models.Allcode, {foreignKey: 'GioiTinh', targetKey: "keyMap"})
-      Thuoc.hasMany(models.Content, { foreginKey: "id " });
-      // Thuoc.hasMany(models.CTPhieuXuat, { foreginKey: "id " });
+      Thuoc.hasMany(models.Content, { foreginKey: "id" });
+
+      // Thuoc.hasMany(models.CTPhieuXuat, { foreignKey: "id", as: "data" });
     }
   }
   Thuoc.init(

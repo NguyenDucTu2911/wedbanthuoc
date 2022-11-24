@@ -128,6 +128,48 @@ let portMuaHang = async (req, res) => {
   }
 };
 
+let getlistgiohang = async (req, res) => {
+  try {
+    let data = await medicineServices.getlistgiohangId(req.query.id);
+    return res.status(200).json(data);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "loi server",
+    });
+  }
+};
+
+let cthangthuoc = async (req, res) => {
+  try {
+    let data = await medicineServices.cthangthuocId(req.query.id);
+    return res.status(200).json(data);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "loi server",
+    });
+  }
+};
+
+let GetAllthuocId = async (req, res) => {
+  try {
+    let data = await medicineServices.GetAllthuocId();
+    return res.status(200).json({
+      errCode: 0,
+      errMessage: "ok",
+      data,
+    });
+  } catch (e) {
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "err",
+    });
+  }
+};
+
 module.exports = {
   getAllMedicine: getAllMedicine,
   postMedicine: postMedicine,
@@ -139,4 +181,7 @@ module.exports = {
   // getDetailCart: getDetailCart,
   // getAllCart: getAllCart,
   portMuaHang: portMuaHang,
+  getlistgiohang: getlistgiohang,
+  cthangthuoc: cthangthuoc,
+  GetAllthuocId: GetAllthuocId,
 };

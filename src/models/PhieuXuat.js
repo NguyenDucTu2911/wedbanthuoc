@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // PhieuXuat.hasMany(models.CTPhieuXuat, { foreginKey: "id " });
+      PhieuXuat.belongsTo(models.KhachHang, { foreignKey: "idKH" });
+      PhieuXuat.belongsTo(models.CTPhieuXuat, {
+        foreignKey: "id",
+      });
     }
   }
   PhieuXuat.init(
