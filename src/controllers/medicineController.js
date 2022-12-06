@@ -174,7 +174,6 @@ let GetAllthuocId = async (req, res) => {
 };
 
 let portNhapHang = async (req, res) => {
-  console.log(req.body);
   try {
     let data = await medicineServices.portNhapHangid(req.body);
     return res.status(200).json(data);
@@ -205,6 +204,24 @@ let GetAllKhachHang = async (req, res) => {
   });
 };
 
+let GetAllctphiunhap = async (req, res) => {
+  let id = req.query.id;
+
+  if (!id) {
+    return res.status(200).json({
+      errCode: 1,
+      errMessage: "missing required prameters",
+      data: [],
+    });
+  }
+  let data = await medicineServices.Getctphiunhap(id);
+  return res.status(200).json({
+    errCode: 0,
+    errMessage: "ok",
+    data,
+  });
+};
+
 module.exports = {
   getAllMedicine: getAllMedicine,
   postMedicine: postMedicine,
@@ -221,4 +238,5 @@ module.exports = {
   GetAllthuocId: GetAllthuocId,
   portNhapHang: portNhapHang,
   GetAllKhachHang: GetAllKhachHang,
+  GetAllctphiunhap: GetAllctphiunhap,
 };

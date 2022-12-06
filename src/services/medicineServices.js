@@ -144,21 +144,32 @@ let UpdateMedicine = async (data) => {
 let DeleteMidicineServives = async (Medicineid) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let Medicine = await db.Thuoc.findOne({
-        where: { id: Medicineid },
-        raw: false,
-      });
-      if (!Medicine) {
+      if (!Medicineid) {
         resolve({
           errCode: 1,
           errMessage: "Thuốc không tồn tại",
         });
+      } else {
+        if (Medicineid) {
+          let Medicine = await db.Thuoc.findOne({
+            where: { id: Medicineid },
+            raw: false,
+          });
+          if (Medicine && Medicine.id) {
+            let content = await db.Content.findOne({
+              where: { thuocId: Medicine.id },
+              raw: false,
+            });
+            await content.destroy();
+          }
+          await Medicine.destroy();
+        }
+
+        resolve({
+          errCode: 0,
+          errMessage: "xóa Thuốc thành công",
+        });
       }
-      await Medicine.destroy();
-      resolve({
-        errCode: 0,
-        errMessage: "xóa Thuốc thành công",
-      });
     } catch (e) {
       reject(e);
     }
@@ -440,13 +451,12 @@ let portNhapHangid = (data) => {
   console.log("helo", data);
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.idNPP) {
+      if (!data) {
         resolve({
           errCode: 1,
           errMessage: "lỗi không có Thông tin",
         });
-      } 
-      else {
+      } else {
         let donhang = await db.PhieuNhap.findOrCreate({
           idNPP: data.idNPP,
           idNV: data.idNV,
@@ -494,6 +504,25 @@ let GetKhachHang = (cutommerId) => {
   });
 };
 
+let Getctphiunhap = (MedicineId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let Medicine = "";
+      if (MedicineId === "ALL") {
+        Medicine = await db.CTPhieuNhap.findAll({});
+      }
+      if (MedicineId && MedicineId !== "ALL") {
+        Medicine = await db.CTPhieuNhap.findOne({
+          where: { id: MedicineId },
+        });
+      }
+      resolve(Medicine);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 module.exports = {
   GetMedicine: GetMedicine,
   CreateMedicine: CreateMedicine,
@@ -511,4 +540,5 @@ module.exports = {
   GetAllthuocId: GetAllthuocId,
   portNhapHangid: portNhapHangid,
   GetKhachHang: GetKhachHang,
+  Getctphiunhap: Getctphiunhap,
 };
