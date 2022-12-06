@@ -130,7 +130,10 @@ let portMuaHang = async (req, res) => {
 
 let getlistgiohang = async (req, res) => {
   try {
-    let data = await medicineServices.getlistgiohangId(req.query.id);
+    let data = await medicineServices.getlistgiohangId(
+      // req.query.id,
+      req.query.NgayXuat
+    );
     return res.status(200).json(data);
   } catch (e) {
     console.log(e);
@@ -170,6 +173,38 @@ let GetAllthuocId = async (req, res) => {
   }
 };
 
+let portNhapHang = async (req, res) => {
+  console.log(req.body);
+  try {
+    let data = await medicineServices.portNhapHangid(req.body);
+    return res.status(200).json(data);
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "loi server",
+    });
+  }
+};
+
+let GetAllKhachHang = async (req, res) => {
+  let id = req.query.id;
+
+  if (!id) {
+    return res.status(200).json({
+      errCode: 1,
+      errMessage: "missing required prameters",
+      data: [],
+    });
+  }
+  let data = await medicineServices.GetKhachHang(id);
+  return res.status(200).json({
+    errCode: 0,
+    errMessage: "ok",
+    data,
+  });
+};
+
 module.exports = {
   getAllMedicine: getAllMedicine,
   postMedicine: postMedicine,
@@ -184,4 +219,6 @@ module.exports = {
   getlistgiohang: getlistgiohang,
   cthangthuoc: cthangthuoc,
   GetAllthuocId: GetAllthuocId,
+  portNhapHang: portNhapHang,
+  GetAllKhachHang: GetAllKhachHang,
 };

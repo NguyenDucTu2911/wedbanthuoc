@@ -45,6 +45,10 @@ const initWedRoute = (app) => {
   //call all thuoc
   router.get("/api/GetAllthuocId", medicineController.GetAllthuocId);
 
+  router.post("/api/portNhapHang", medicineController.portNhapHang);
+
+  router.get("/api/GetAllKhachHang", medicineController.GetAllKhachHang);
+
   return app.use("/", router);
 };
 

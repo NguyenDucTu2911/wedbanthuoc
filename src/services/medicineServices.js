@@ -342,17 +342,19 @@ let portMuaHangid = (data) => {
   });
 };
 
-let getlistgiohangId = (id) => {
+let getlistgiohangId = (NgayXuat) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!id) {
+      // if (!id || !NgayXuat)
+      if (!NgayXuat) {
         resolve({
           errCode: 1,
           errMessage: "lỗi required",
         });
       } else {
         let data = await db.PhieuXuat.findAll({
-          where: { id: id },
+          //  where: { id: id, NgayXuat: NgayXuat }
+          where: { NgayXuat: NgayXuat },
           include: [
             {
               model: db.CTPhieuXuat,
@@ -434,6 +436,64 @@ let GetAllthuocId = () => {
   });
 };
 
+let portNhapHangid = (data) => {
+  console.log("helo", data);
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.idNPP) {
+        resolve({
+          errCode: 1,
+          errMessage: "lỗi không có Thông tin",
+        });
+      } 
+      else {
+        let donhang = await db.PhieuNhap.findOrCreate({
+          idNPP: data.idNPP,
+          idNV: data.idNV,
+          NgayXuat: data.NgayXuat,
+          GioXuat: data.GioXuat,
+        });
+        if (donhang && donhang[0].id) {
+          await db.CTPhieuNhap.create({
+            id: donhang[0].id,
+            SoLo: data.SoLo,
+            NgaySX: data.NgaySX,
+            HanSD: data.HanSD,
+            SoLuongNhap: data.SoLuongNhap,
+            ThanhTien: data.ThanhTien,
+          });
+        }
+        resolve({
+          CUTTOMMERT,
+          errCode: 0,
+          errMessage: "them thành công",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let GetKhachHang = (cutommerId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let Medicine = "";
+      if (cutommerId === "ALL") {
+        Medicine = await db.KhachHang.findAll({});
+      }
+      if (cutommerId && cutommerId !== "ALL") {
+        Medicine = await db.KhachHang.findOne({
+          where: { id: cutommerId },
+        });
+      }
+      resolve(Medicine);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 module.exports = {
   GetMedicine: GetMedicine,
   CreateMedicine: CreateMedicine,
@@ -449,4 +509,6 @@ module.exports = {
   getlistgiohangId: getlistgiohangId,
   cthangthuocId: cthangthuocId,
   GetAllthuocId: GetAllthuocId,
+  portNhapHangid: portNhapHangid,
+  GetKhachHang: GetKhachHang,
 };
